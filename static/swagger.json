@@ -1,0 +1,258 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "demo",
+    "version": "1.0.0",
+    "title": "Swagger Anime"
+  },
+  "host": "127.0.0.1:5000/",
+
+  "paths": {
+    "/find/{anime_name}": {
+      "get": {
+        "tags": ["AnimeInfor"],
+        "summary": "Get anime infor",
+        "description": "Get anime infor",
+        "operationId": "getAnimeInfor",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "anime_name",
+            "type": "string",
+            "required": true,
+            "description": "Name annime",
+            "example": "thon-phe-tinh-khong-3247"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A Infor anime",
+            "schema": {
+              "$ref": "#/definitions/AnimeInfor"
+            }
+          },
+          "405": {
+            "description": "No find Name"
+          }
+        }
+      }
+    },
+    "/search?name={name_find}&page={page_number}": {
+      "get": {
+        "tags": ["AnimeSearch"],
+        "summary": "Find anime",
+        "description": "Find anime ",
+        "operationId": "findAnimeInfor",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "anime_find",
+            "type": "string",
+            "required": true,
+            "description": "Name anime",
+            "example": "conan"
+          },
+          {
+            "in": "path",
+            "name": "page_number",
+            "type": "string",
+            "required": false,
+            "description": "Page Number",
+            "example": "1"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A Infor anime",
+            "schema": {
+              "$ref": "#/definitions/AnimeList"
+            }
+          },
+          "405": {
+            "description": "No Data Found"
+          }
+        }
+      }
+    },
+    "/{anime_category}/{page}": {
+      "get": {
+        "tags": ["AnimeList"],
+        "summary": "Get list anime",
+        "description": "Get list anime ",
+        "operationId": "listAnime",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "anime_category",
+            "type": "string",
+            "required": true,
+            "description": "category anime",
+            "example": ["anime", "hanh-dong", "hai-huoc", "tinh-cam", "harem", "bi-an", "bi-kich", "gia-tuong",
+            "hoc-duong", "doi-thuong", "tham-tu", "lich-su", "sieu-nang-luc", "shounen", "shounen-ai",
+            "shoujo", "shoujo-ai", "the-thao", "am-nhac", "psychological", "mecha", "quan-doi", "drama",
+            "seinen", "sieu-nhien", "phieu-luu", "kinh-di", "ma-ca-rong", "tokusatsu", "tien-hiep", "kiem-hiep", "xuyen-khong",
+            "trung-sinh", "huyen-ao", "cna-ngon-tinh", "di-gioi", "cna-hai-huoc", "dam-my", "vo-hiep", "ecchi", "demon", "live-action"]
+          },
+          {
+            "in": "path",
+            "name": "page",
+            "type": "string",
+            "required": true,
+            "description": "Page Number",
+            "example": "trang-1 or trang-2 or...."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of anime",
+            "schema": {
+              "$ref": "#/definitions/AnimeList"
+            }
+          },
+          "405": {
+            "description": "No Data Found"
+          }
+        }
+      }
+    },
+    "/watch/{anime_name}": {
+      "get": {
+        "tags": ["AnimeData"],
+        "summary": "Get anime data",
+        "description": "Get anime data",
+        "operationId": "getAnimeData",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "anime_name",
+            "type": "string",
+            "required": true,
+            "description": "Name anime",
+            "example": "the-gioi-hoan-my-tap-1-47421"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A Data anime",
+            "schema": {
+              "$ref": "#/definitions/AnimeData"
+            }
+          },
+          "405": {
+            "description": "No Data Found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "AnimeInfor": {
+      "type": "object",
+      "properties": {
+        "bind_list": {
+          "type": "array"
+        },
+        "category": {
+          "type": "array"
+        },
+        "description": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string",
+          "example": "Thế Giới Hoàn Mỹ"
+        },
+        "status": {
+          "type": "string",
+          "example": "Đang tiến hành"
+        },
+        "score": {
+          "type": "string",
+          "example": "9.2 || 1876 đánh giá"
+        },
+        "duration": {
+          "type": "string",
+          "example": "130 Tập"
+        },
+        "esp_list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "esp": {
+                "type": "string"
+              },
+              "esp_link": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "AnimeList": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "link": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "score": {
+                "type": "string"
+              },
+              "thumbnail": {
+                "type": "string"
+              },
+              "update": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "AnimeData": {
+      "type": "object",
+      "properties": {
+        "source": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "meta_content": {
+          "type": "string"
+        },
+        "esp_list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "esp": {
+                "type": "string"
+              },
+              "esp_link": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
