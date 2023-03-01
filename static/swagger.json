@@ -39,6 +39,34 @@
         }
       }
     },
+    "/filter": {
+      "post": {
+        "tags": ["AnimeFilter"],
+        "summary": "Get anime filter",
+        "description": "Get anime filter",
+        "operationId": "FilterAnime",
+        "consumes": ["application/json"],
+        "parameters": {
+          "in":"body",
+          "name":"anime",
+          "description":"filter anime",
+          "schema": {
+            "$ref": "#/definitions/filterForm"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "a list anime",
+            "schema": {
+              "$ref": "#/definitions/AnimeList"
+            }
+          },
+          "405": {
+            "description": "No find Name"
+          }
+        }
+      }
+    },
     "/search?name={name_find}&page={page_number}": {
       "get": {
         "tags": ["AnimeSearch"],
@@ -67,7 +95,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A Infor anime",
+            "description": "A list anime",
             "schema": {
               "$ref": "#/definitions/AnimeList"
             }
@@ -93,11 +121,50 @@
             "type": "string",
             "required": true,
             "description": "category anime",
-            "example": ["anime", "hanh-dong", "hai-huoc", "tinh-cam", "harem", "bi-an", "bi-kich", "gia-tuong",
-            "hoc-duong", "doi-thuong", "tham-tu", "lich-su", "sieu-nang-luc", "shounen", "shounen-ai",
-            "shoujo", "shoujo-ai", "the-thao", "am-nhac", "psychological", "mecha", "quan-doi", "drama",
-            "seinen", "sieu-nhien", "phieu-luu", "kinh-di", "ma-ca-rong", "tokusatsu", "tien-hiep", "kiem-hiep", "xuyen-khong",
-            "trung-sinh", "huyen-ao", "cna-ngon-tinh", "di-gioi", "cna-hai-huoc", "dam-my", "vo-hiep", "ecchi", "demon", "live-action"]
+            "example": [
+              "anime",
+              "hanh-dong",
+              "hai-huoc",
+              "tinh-cam",
+              "harem",
+              "bi-an",
+              "bi-kich",
+              "gia-tuong",
+              "hoc-duong",
+              "doi-thuong",
+              "tham-tu",
+              "lich-su",
+              "sieu-nang-luc",
+              "shounen",
+              "shounen-ai",
+              "shoujo",
+              "shoujo-ai",
+              "the-thao",
+              "am-nhac",
+              "psychological",
+              "mecha",
+              "quan-doi",
+              "drama",
+              "seinen",
+              "sieu-nhien",
+              "phieu-luu",
+              "kinh-di",
+              "ma-ca-rong",
+              "tokusatsu",
+              "tien-hiep",
+              "kiem-hiep",
+              "xuyen-khong",
+              "trung-sinh",
+              "huyen-ao",
+              "cna-ngon-tinh",
+              "di-gioi",
+              "cna-hai-huoc",
+              "dam-my",
+              "vo-hiep",
+              "ecchi",
+              "demon",
+              "live-action"
+            ]
           },
           {
             "in": "path",
@@ -199,6 +266,34 @@
       }
     },
     "AnimeList": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "link": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "score": {
+                "type": "string"
+              },
+              "thumbnail": {
+                "type": "string"
+              },
+              "update": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "filterForm": {
       "type": "object",
       "properties": {
         "data": {

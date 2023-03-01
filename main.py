@@ -1,10 +1,11 @@
 
-from flask import Flask, request
-from flask_restful import Resource, Api
+from flask import Flask, request,jsonify
+
 import json
 from flask_cors import CORS
 import requests
 import re
+import base64
 from handle import bsString, getAnimesData
 from bs4 import BeautifulSoup
 from flask_swagger_ui import get_swaggerui_blueprint
@@ -83,8 +84,19 @@ def search():
 
 @app.route('/filter', methods=['POST'])
 def filter():
-    data = json.load(request.json)
-    return "filter no finish"
+    data = request.get_json()
+    the_loai=[]
+    for item in data['the_loai']:
+        index=categories.index(item)
+        the_loai.append(index+1)
+
+    rs='[{},{},{},{}]'.format(the_loai,data['year'],data['length'], data['status'])
+    print(rs)
+    tx=base64.b64encode(bytes(rs, 'utf-8'))
+    url="https://animehay.pro/loc-phim/{}".format("tx")
+    my_request = requests.get(url)
+    soup = BeautifulSoup(my_request.text, 'html.parser')
+    return getAnimesData(soup)
 
 
 @app.route('/find/<string:anime_name>', methods=['GET'])
