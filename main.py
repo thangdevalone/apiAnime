@@ -130,7 +130,7 @@ def dataAnime(anime_name):
     if (list_bind):
         a_bind = []
         for bind in list_bind.findAll('a'):
-            a_bind.append({"bind_name": bsString(bind.text), "bind_link": '/find/' +
+            a_bind.append({"bind_name": bsString(bind.text), "bind_link":
                           bind.get('href').split('/')[-1].replace('.html', '')})
         anime_infor["bind_list"] = a_bind
     else:
@@ -138,7 +138,7 @@ def dataAnime(anime_name):
     list_esp = soup.select('.list-item-episode a')
     a_esp = []
     for esp in list_esp:
-        a_esp.append({"esp": bsString(esp.text), "esp_link": "/watch/{}".format(
+        a_esp.append({"esp": bsString(esp.text), "esp_link": "{}".format(
             esp.get('href').split('/')[-1].replace('.html', ''))})
     anime_infor["esp_list"] = a_esp
 
@@ -165,7 +165,7 @@ def watch(anime_name):
         list_esp = soup.select('.list-item-episode a')
         a_esp = []
         for esp in list_esp:
-            a_esp.append({"esp": bsString(esp.text), "esp_link": "/watch/{}".format(
+            a_esp.append({"esp": bsString(esp.text), "esp_link": "{}".format(
                 esp.get('href').split('/')[-1].replace('.html', ''))})
         anime_data["esp_list"] = a_esp
         print(soup)

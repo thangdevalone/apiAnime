@@ -7,8 +7,7 @@ def getAnimesData(soup):
         if (film):
             anime_data = {}
 
-            anime_data["link"] = "/find/" + \
-                film.find('a').get('href').split('/')[-1].replace('.html', '')
+            anime_data["link"] = film.find('a').get('href').split('/')[-1].replace('.html', '')
             anime_data["name"] = bsString(film.find(
                 'div', class_='name-movie').text)
             anime_data["thumbnail"] = film.find(
