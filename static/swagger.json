@@ -44,16 +44,36 @@
         "tags": ["AnimeFilter"],
         "summary": "Get anime filter",
         "description": "Get anime filter",
-        "operationId": "FilterAnime",
         "consumes": ["application/json"],
-        "parameters": {
-          "in":"body",
-          "name":"anime",
-          "description":"filter anime",
-          "schema": {
-            "$ref": "#/definitions/filterForm"
+        "operationId": "FilterAnime",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "filter form",
+            "description": "The filter anime </br>*if year <2014 =1111* </br>*if length full=9999* </br>*if status done=1 else 0*",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "the_loai": {
+                  "type": "array",
+                  "example": ["anime", "tham-tu"]
+                },
+                "length": {
+                  "type": "array",
+                  "example": [100]
+                },
+                "year": {
+                  "type": "array",
+                  "example": [2022]
+                },
+                "status": {
+                  "type": "array",
+                  "example": [1]
+                }
+              }
+            }
           }
-        },
+        ],
         "responses": {
           "200": {
             "description": "a list anime",
@@ -63,45 +83,6 @@
           },
           "405": {
             "description": "No find Name"
-          }
-        }
-      }
-    },
-    "/search?name={name_find}&page={page_number}": {
-      "get": {
-        "tags": ["AnimeSearch"],
-        "summary": "Find anime",
-        "description": "Find anime ",
-        "operationId": "findAnimeInfor",
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "anime_find",
-            "type": "string",
-            "required": true,
-            "description": "Name anime",
-            "example": "conan"
-          },
-          {
-            "in": "path",
-            "name": "page_number",
-            "type": "string",
-            "required": false,
-            "description": "Page Number",
-            "example": "1"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A list anime",
-            "schema": {
-              "$ref": "#/definitions/AnimeList"
-            }
-          },
-          "405": {
-            "description": "No Data Found"
           }
         }
       }
@@ -132,6 +113,8 @@
               "gia-tuong",
               "hoc-duong",
               "doi-thuong",
+              "vo-thuat",
+              "tro-choi",
               "tham-tu",
               "lich-su",
               "sieu-nang-luc",
@@ -163,7 +146,9 @@
               "vo-hiep",
               "ecchi",
               "demon",
-              "live-action"
+              "live-action",
+              "thriller",
+              "khoa-huyen"
             ]
           },
           {
@@ -178,6 +163,45 @@
         "responses": {
           "200": {
             "description": "A list of anime",
+            "schema": {
+              "$ref": "#/definitions/AnimeList"
+            }
+          },
+          "405": {
+            "description": "No Data Found"
+          }
+        }
+      }
+    },
+    "/search?name={name_find}&page={page_number}": {
+      "get": {
+        "tags": ["AnimeSearch"],
+        "summary": "Find anime",
+        "description": "Find anime ",
+        "operationId": "findAnimeInfor",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "name_find",
+            "type": "string",
+            "required": true,
+            "description": "Name anime",
+            "example": "conan"
+          },
+          {
+            "in": "path",
+            "name": "page_number",
+            "type": "string",
+            "required": false,
+            "description": "Page Number",
+            "example": "1"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list anime",
             "schema": {
               "$ref": "#/definitions/AnimeList"
             }
@@ -266,34 +290,6 @@
       }
     },
     "AnimeList": {
-      "type": "object",
-      "properties": {
-        "data": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "link": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "score": {
-                "type": "string"
-              },
-              "thumbnail": {
-                "type": "string"
-              },
-              "update": {
-                "type": "string"
-              }
-            }
-          }
-        }
-      }
-    },
-    "filterForm": {
       "type": "object",
       "properties": {
         "data": {

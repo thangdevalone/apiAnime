@@ -17,10 +17,10 @@ headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36'}
 
 categories = ["anime", "hanh-dong", "hai-huoc", "tinh-cam", "harem", "bi-an", "bi-kich", "gia-tuong",
-              "hoc-duong", "doi-thuong", "tham-tu", "lich-su", "sieu-nang-luc", "shounen", "shounen-ai",
+              "hoc-duong", "doi-thuong","vo-thuat","tro-choi", "tham-tu", "lich-su", "sieu-nang-luc", "shounen", "shounen-ai",
               "shoujo", "shoujo-ai", "the-thao", "am-nhac", "psychological", "mecha", "quan-doi", "drama",
               "seinen", "sieu-nhien", "phieu-luu", "kinh-di", "ma-ca-rong", "tokusatsu", "tien-hiep", "kiem-hiep", "xuyen-khong",
-              "trung-sinh", "huyen-ao", "cna-ngon-tinh", "di-gioi", "cna-hai-huoc", "dam-my", "vo-hiep", "ecchi", "demon", "live-action"]
+              "trung-sinh", "huyen-ao", "cna-ngon-tinh", "di-gioi", "cna-hai-huoc", "dam-my", "vo-hiep", "ecchi", "demon", "live-action","thriller","khoa-huyen"]
 
 
 SWAGGER_URL = '/docs'  # URL for exposing Swagger UI (without trailing '/')
@@ -92,8 +92,9 @@ def filter():
 
     rs='[{},{},{},{}]'.format(the_loai,data['year'],data['length'], data['status'])
     print(rs)
-    tx=base64.b64encode(bytes(rs, 'utf-8'))
-    url="https://animehay.pro/loc-phim/{}".format("tx")
+    tx=base64.b64encode(bytes(rs, 'utf-8')).decode()
+    url="https://animehay.pro/loc-phim/{}".format(tx)
+    print(url)
     my_request = requests.get(url)
     soup = BeautifulSoup(my_request.text, 'html.parser')
     return getAnimesData(soup)
