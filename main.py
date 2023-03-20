@@ -50,7 +50,7 @@ def hello():
 
 @app.route('/home', methods=['GET'])
 def home():
-    url = "https://animehay.pro"
+    url = "https://animehay.live"
     my_request = requests.get(url)
     soup = BeautifulSoup(my_request.text, 'html.parser')
     print(soup)
@@ -72,7 +72,7 @@ def home():
 def search():
     name = request.args.get('name')
     page = request.args.get('page') or 1
-    url = "https://animehay.pro/tim-kiem/{}/trang-{}.html".format(name, page)
+    url = "https://animehay.live/tim-kiem/{}/trang-{}.html".format(name, page)
     my_request = requests.get(url)
     soup = BeautifulSoup(my_request.text, 'html.parser')
     data = getAnimesData(soup)
@@ -93,7 +93,7 @@ def filter():
     rs='[{},{},{},{}]'.format(the_loai,data['year'],data['length'], data['status'])
     print(rs)
     tx=base64.b64encode(bytes(rs, 'utf-8')).decode()
-    url="https://animehay.pro/loc-phim/{}".format(tx)
+    url="https://animehay.live/loc-phim/{}".format(tx)
     print(url)
     my_request = requests.get(url)
     soup = BeautifulSoup(my_request.text, 'html.parser')
@@ -102,7 +102,7 @@ def filter():
 
 @app.route('/find/<string:anime_name>', methods=['GET'])
 def dataAnime(anime_name):
-    url = "https://animehay.pro/thong-tin-phim/{}.html".format(anime_name)
+    url = "https://animehay.live/thong-tin-phim/{}.html".format(anime_name)
     anime_infor = dict()
     my_request = requests.get(url)
     soup = BeautifulSoup(my_request.content, 'html.parser')
@@ -149,7 +149,7 @@ def dataAnime(anime_name):
 @app.route('/watch/<string:anime_name>', methods=['GET'])
 def watch(anime_name):
     try:
-        url = "https://animehay.pro/xem-phim/{}.html".format(anime_name)
+        url = "https://animehay.live/xem-phim/{}.html".format(anime_name)
         anime_data = dict()
         my_request = requests.get(url)
         soup = BeautifulSoup(my_request.text, 'html.parser')
@@ -180,7 +180,7 @@ def anime(cate, anime_page):
     if cate in categories:
         anime_cate = categories.index(cate)+1
 
-        url = "https://animehay.pro/the-loai/anime-{}/{}.html".format(
+        url = "https://animehay.live/the-loai/anime-{}/{}.html".format(
             anime_cate, anime_page)
 
         my_request = requests.get(url)
